@@ -1,12 +1,16 @@
 from utils import load_dataset
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import time
 
-MODELS_MAPPING = {"rf": RandomForestClassifier(),
-                  "knn": KNeighborsClassifier()} 
+MODELS_MAPPING = {"rf": RandomForestClassifier(random_state=42),
+                  "knn": KNeighborsClassifier(random_state=42),
+                  "svm": SVC(random_state=42),
+                  "ds": DecisionTreeClassifier(random_state=42)} 
 TEST_SPLIT_FRACTION = 0.2
 
 def define_model(model_type):
