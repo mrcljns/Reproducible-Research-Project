@@ -5,6 +5,8 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import GridSearchCV
+import pickle as pkl
 import time
 
 MODELS_MAPPING = {"rf": RandomForestClassifier(random_state=42),
@@ -32,6 +34,24 @@ def train_and_predict(x_path, y_path, model, save_path):
     eval_accuracy = accuracy_score(y_test, y_pred_eval)
     
     return training_time, eval_time, train_accuracy, eval_accuracy
+
+def optimize_hyperparams(x_path, y_path, model_type, k):
+    X, y  = load_dataset(x_path, y_path)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SPLIT_FRACTION, random_state=42)
+    model = MODELS_MAPPING[model_type]
+    if model_type == "rf":
+        params = ...
+    elif model_type == "knn":
+        params = ...
+    elif model_type == "svm":
+        params = ...
+    else:
+        params = ...
+    clf = GridSearchCV(estimator=model, param_grid=params, scoring='accuracy', cv=k, n_jobs=-1)
+    clf.fit(X_train, y_train)
+    # Save the best params to a python dict
+    with open(f'{model_type}_best_params.pickle', 'wb') as handle:
+        pkl.dump(clf.best_params_, handle, protocol=pkl.HIGHEST_PROTOCOL)
 
 if __name__ == "__main__": 
     model = define_model("rf")
