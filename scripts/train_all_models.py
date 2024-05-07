@@ -33,11 +33,12 @@ def main():
             
             results_df.loc[len(results_df)] = new_row
     if os.path.exists("../Data/results.csv"):
-        temp_df = pd.read_csv("../Data/results.csv") 
+        temp_df = pd.read_csv("../Data/results.csv", index_col=0) 
         temp_df = pd.concat([temp_df, results_df], axis=0)
-        temp_df.to_csv("../Data/results.csv")
+        temp_df = temp_df.reset_index(drop=True)
+        temp_df.to_csv("../Data/results.csv", index=False)
     else:
-        results_df.to_csv("../Data/results.csv")
+        results_df.to_csv("../Data/results.csv", index=False)
     
 if __name__ == "__main__":
     main()
