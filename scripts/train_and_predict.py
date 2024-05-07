@@ -8,10 +8,12 @@ from sklearn.metrics import accuracy_score, f1_score
 import time
 import numpy as np
 
-MODELS_MAPPING = {"rf": RandomForestClassifier(random_state=42),
-                  "knn": KNeighborsClassifier(random_state=42),
-                  "svm": SVC(random_state=42),
-                  "ds": DecisionTreeClassifier(random_state=42)} 
+MODELS_MAPPING = {
+    # "rf": RandomForestClassifier(random_state=42),
+    # "knn": KNeighborsClassifier(random_state=42),
+    "svm": SVC(random_state=42),
+    "ds": DecisionTreeClassifier(random_state=42)
+    } 
 TEST_SPLIT_FRACTION = 0.2
 
 def define_model(model_type):

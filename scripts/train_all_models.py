@@ -32,7 +32,12 @@ def main():
                        "eval_f1": eval_f1}
             
             results_df.loc[len(results_df)] = new_row
-    results_df.to_csv("../Data/results.csv")
+    if os.path.exists("../Data/results.csv"):
+        temp_df = pd.read_csv("../Data/results.csv") 
+        temp_df = pd.concat([temp_df, results_df], axis=0)
+        temp_df.to_csv("../Data/results.csv")
+    else:
+        results_df.to_csv("../Data/results.csv")
     
 if __name__ == "__main__":
     main()
