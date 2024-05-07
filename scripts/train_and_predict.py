@@ -5,8 +5,6 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import GridSearchCV
-import pickle as pkl
 import time
 
 MODELS_MAPPING = {"rf": RandomForestClassifier(random_state=42),
