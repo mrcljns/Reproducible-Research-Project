@@ -40,13 +40,37 @@ def optimize_hyperparams(x_path, y_path, model_type, k):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SPLIT_FRACTION, random_state=42)
     model = MODELS_MAPPING[model_type]
     if model_type == "rf":
-        params = ...
+        params = {
+            'n_estimators': [50, 100, 200],
+            'criterion': ['gini', 'entropy'],
+            'max_depth': [None, 10, 20],
+            'min_samples_split': [2, 5, 10],
+            'min_samples_leaf': [1, 2, 4],
+            'max_features': ['auto', 'sqrt', 'log2']
+            }
     elif model_type == "knn":
-        params = ...
+        params = {
+            'n_neighbors': [3, 5, 7],
+            'weights': ['uniform', 'distance'],
+            'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute'],
+            'p': [1, 2]
+            }
     elif model_type == "svm":
-        params = ...
+        params = {
+            'C': [0.1, 1, 10],
+            'kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
+            'degree': [2, 3, 4],
+            'gamma': ['scale', 'auto']
+            }
     else:
-        params = ...
+        params = {
+            'criterion': ['gini', 'entropy'],
+            'splitter': ['best', 'random'],
+            'max_depth': [None, 10, 20],
+            'min_samples_split': [2, 5, 10],
+            'min_samples_leaf': [1, 2, 4],
+            'max_features': ['auto', 'sqrt', 'log2']
+            }
     clf = GridSearchCV(estimator=model, param_grid=params, scoring='accuracy', cv=k, n_jobs=-1)
     clf.fit(X_train, y_train)
     # Save the best params to a python dict
