@@ -10,7 +10,7 @@ import pickle as pkl
 MODELS_MAPPING = {"rf": RandomForestClassifier(random_state=42),
                   "knn": KNeighborsClassifier(random_state=42),
                   "svm": SVC(random_state=42),
-                  "ds": DecisionTreeClassifier(random_state=42)} 
+                  "dt": DecisionTreeClassifier(random_state=42)} 
 TEST_SPLIT_FRACTION = 0.2
 
 def define_model(model_type):
@@ -43,7 +43,7 @@ def optimize_hyperparams(x_path, y_path, model_type, k):
             'degree': [2, 3, 4],
             'gamma': ['scale', 'auto']
             }
-    else:
+    elif model_type == "dt":
         params = {
             'criterion': ['gini', 'entropy'],
             'splitter': ['best', 'random'],
@@ -52,6 +52,8 @@ def optimize_hyperparams(x_path, y_path, model_type, k):
             'min_samples_leaf': [1, 2, 4],
             'max_features': ['auto', 'sqrt', 'log2']
             }
+    else:
+        raise ValueError("Invalid model type.")
     clf = GridSearchCV(estimator=model, param_grid=params, scoring='accuracy', cv=k, n_jobs=-1)
     clf.fit(X_train, y_train)
     # Save the best params to a python dict

@@ -12,7 +12,7 @@ MODELS_MAPPING = {
     "rf": RandomForestClassifier(random_state=42),
     "knn": KNeighborsClassifier(random_state=42),
     "svm": SVC(random_state=42),
-    "ds": DecisionTreeClassifier(random_state=42)
+    "dt": DecisionTreeClassifier(random_state=42)
     } 
 TEST_SPLIT_FRACTION = 0.2
 
