@@ -7,12 +7,18 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score
 import time
 import numpy as np
+import pickle as pkl
+
+def load_hyperparams(model_type):
+    with open(f'../Data/Best_hyperparams/{model_type}_best.pickle', 'rb') as handle:
+        params = pkl.load(handle)
+        return params
 
 MODELS_MAPPING = {
-    "rf": RandomForestClassifier(random_state=42),
-    "knn": KNeighborsClassifier(random_state=42),
-    "svm": SVC(random_state=42),
-    "dt": DecisionTreeClassifier(random_state=42)
+    "rf": RandomForestClassifier(**load_hyperparams("rf"), n_jobs=-1, random_state=42),
+    "knn": KNeighborsClassifier(**load_hyperparams("knn"), n_jobs=-1),
+    "svm": SVC(**load_hyperparams("svm"), random_state=42),
+    "dt": DecisionTreeClassifier(**load_hyperparams("dt"), random_state=42)
     } 
 TEST_SPLIT_FRACTION = 0.2
 

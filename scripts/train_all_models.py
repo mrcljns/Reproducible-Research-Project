@@ -35,6 +35,7 @@ def main():
     if os.path.exists("../Data/results.csv"):
         temp_df = pd.read_csv("../Data/results.csv", index_col=0) 
         temp_df = pd.concat([temp_df, results_df], axis=0)
+        temp_df = temp_df.sort_values(by=['dataset', 'model'])
         temp_df = temp_df.reset_index(drop=True)
         temp_df.to_csv("../Data/results.csv", index=False)
     else:
