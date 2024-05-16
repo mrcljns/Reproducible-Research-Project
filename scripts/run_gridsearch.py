@@ -6,11 +6,14 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 import pickle as pkl
+from tqdm import tqdm
 
-MODELS_MAPPING = {"rf": RandomForestClassifier(random_state=42),
-                  "knn": KNeighborsClassifier(random_state=42),
-                  "svm": SVC(random_state=42),
-                  "dt": DecisionTreeClassifier(random_state=42)} 
+MODELS_MAPPING = {
+    "rf": RandomForestClassifier(n_jobs=-1, random_state=42),
+    "knn": KNeighborsClassifier(n_jobs=-1),
+    "svm": SVC(random_state=42),
+    "dt": DecisionTreeClassifier(random_state=42)
+    } 
 TEST_SPLIT_FRACTION = 0.2
 
 def define_model(model_type):
@@ -18,7 +21,7 @@ def define_model(model_type):
 
 def optimize_hyperparams(x_path, y_path, model_type, k):
     X, y  = load_dataset(x_path, y_path)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SPLIT_FRACTION, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SPLIT_FRACTION, stratify=y, random_state=42)
     model = define_model(model_type)
     if model_type == "rf":
         params = {
@@ -27,7 +30,7 @@ def optimize_hyperparams(x_path, y_path, model_type, k):
             'max_depth': [None, 10, 20],
             'min_samples_split': [2, 5, 10],
             'min_samples_leaf': [1, 2, 4],
-            'max_features': ['auto', 'sqrt', 'log2']
+            'max_features': ['sqrt', 'log2']
             }
     elif model_type == "knn":
         params = {
@@ -39,9 +42,8 @@ def optimize_hyperparams(x_path, y_path, model_type, k):
     elif model_type == "svm":
         params = {
             'C': [0.1, 1, 10],
-            'kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
-            'degree': [2, 3, 4],
-            'gamma': ['scale', 'auto']
+            'kernel': ['poly', 'rbf'],
+            'degree': [2, 3]
             }
     elif model_type == "dt":
         params = {
@@ -50,18 +52,20 @@ def optimize_hyperparams(x_path, y_path, model_type, k):
             'max_depth': [None, 10, 20],
             'min_samples_split': [2, 5, 10],
             'min_samples_leaf': [1, 2, 4],
-            'max_features': ['auto', 'sqrt', 'log2']
+            'max_features': ['sqrt', 'log2']
             }
     else:
         raise ValueError("Invalid model type.")
     clf = GridSearchCV(estimator=model, param_grid=params, scoring='accuracy', cv=k, n_jobs=-1)
     clf.fit(X_train, y_train)
     # Save the best params to a python dict
-    with open(f'../best_hyperparams/{model_type}_best.pickle', 'wb') as handle:
+    with open(f'../Data/Best_hyperparams/{model_type}_best.pickle', 'wb') as handle:
         pkl.dump(clf.best_params_, handle, protocol=pkl.HIGHEST_PROTOCOL)
 
 if __name__ == "__main__":
-    for model_type in MODELS_MAPPING.keys():
+    # Optimize all models on the largest dataset (Wisconsin breast cancer)
+    for model_type in tqdm(MODELS_MAPPING.keys()):
+        print(f"Running gridsearch for {model_type}...")
         model = optimize_hyperparams(x_path="../Data/Cleaned/breast_cancer_X.csv",
                                     y_path="../Data/Cleaned/breast_cancer_y.csv",
                                     model_type=model_type,
