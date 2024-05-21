@@ -1,13 +1,25 @@
 from utils import load_dataset
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score
 import time
 import numpy as np
+import pickle as pkl
 
-MODELS_MAPPING = {"rf": RandomForestClassifier(),
-                  "knn": KNeighborsClassifier()} 
+def load_hyperparams(model_type):
+    with open(f'../Data/Best_hyperparams/{model_type}_best.pickle', 'rb') as handle:
+        params = pkl.load(handle)
+        return params
+
+MODELS_MAPPING = {
+    "rf": RandomForestClassifier(**load_hyperparams("rf"), n_jobs=-1, random_state=42),
+    "knn": KNeighborsClassifier(**load_hyperparams("knn"), n_jobs=-1),
+    "svm": SVC(**load_hyperparams("svm"), random_state=42),
+    "dt": DecisionTreeClassifier(**load_hyperparams("dt"), random_state=42)
+    } 
 TEST_SPLIT_FRACTION = 0.2
 
 def define_model(model_type):
@@ -51,10 +63,8 @@ def train_and_predict(x_path, y_path, model):
 
 if __name__ == "__main__": 
     model = define_model("rf")
-    training_time, testing_time, train_acc, eval_acc = train_and_predict(x_path="../Data/Cleaned/breast_cancer_X.csv", y_path="../Data/Cleaned/breast_cancer_y.csv", model=model,save_path= "test")
+    training_time, testing_time, train_acc, eval_acc = train_and_predict(x_path="../Data/Cleaned/breast_cancer_X.csv",
+                                                                         y_path="../Data/Cleaned/breast_cancer_y.csv",
+                                                                         model=model,
+                                                                         save_path="test")
     print(training_time, testing_time, train_acc, eval_acc)
-    
-    
-    
-    
-   
