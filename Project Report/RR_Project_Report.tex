@@ -398,8 +398,19 @@ PROJECT}\label{reproducible-research-project}}
 
     June, 2024
 
-    \textbf{Team Members} * Dominik Koterwa * Hüseyin Polat * Nurdan Beşli
-457945 * Maciej Lorens 419763
+    \textbf{Team Members}
+
+\begin{itemize}
+\tightlist
+\item
+  Dominik Koterwa 454845
+\item
+  Hüseyin Polat 437969
+\item
+  Nurdan Beşli 457945
+\item
+  Maciej Lorens 419763
+\end{itemize}
 
     \hypertarget{introduction}{%
 \subsection{INTRODUCTION}\label{introduction}}
@@ -430,7 +441,11 @@ six different healthcare datasets, all sourced from the \textbf{UC
 Irvine Machine Learning Repository}. Each of these datasets varies in
 the number of attributes and instances, as detailed below.
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/RR_Dataset_Description.PNG}
+\caption{RR\_Dataset\_Description}
+\end{figure}
 
     \hypertarget{methodology}{%
 \subsection{METHODOLOGY}\label{methodology}}
@@ -443,66 +458,114 @@ steps are applied to ensure compatibility with machine learning models
 and to maintain the integrity of the data analysis. Below are the
 dataset-specific preprocessing methods implemented:
 
-\textbf{COVID-19 Dataset} * \textbf{Binary Remapping:} Each categorical
-variable representing binary states (e.g., positive `+' or negative `-')
-is replaced with numerical values where `+' is mapped to 1 and `-' is
-mapped to 0. * \textbf{Numerical Conversion:} All columns are converted
-to numeric types to facilitate mathematical operations and model
-fitting. * \textbf{Column Renaming:} To clearly indicate the binary
-nature of the data, columns are renamed by adding a `is\_' prefix,
-enhancing clarity and manageability in the dataset.
+\textbf{COVID-19 Dataset}
 
-\textbf{Hepatitis Dataset} * \textbf{Binary Remapping:} Specific columns
-that contain categorical data related to the patient's conditions (e.g.,
-`Steroid', `Antivirals', `Fatigue') are converted to binary format,
-where applicable values are adjusted to 0 and 1 to reflect absence and
-presence of the condition. * \textbf{Mean and Median Imputation:}
-Missing values are addressed by calculating and substituting the mean
-and median for each column, allowing for robustness against outliers and
-skewed data. * \textbf{Dropping Missing Data:} Rows containing missing
-data are removed to avoid the introduction of bias or inaccuracies in
-the model's predictions. Corresponding entries in the target variable
-are also excluded to maintain dataset alignment.
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Binary Remapping:} Each categorical variable representing
+  binary states (e.g., positive `+' or negative `-') is replaced with
+  numerical values where `+' is mapped to 1 and `-' is mapped to 0.
+\item
+  \textbf{Numerical Conversion:} All columns are converted to numeric
+  types to facilitate mathematical operations and model fitting.
+\item
+  \textbf{Column Renaming:} To clearly indicate the binary nature of the
+  data, columns are renamed by adding a `is\_' prefix, enhancing clarity
+  and manageability in the dataset.
+\end{itemize}
 
-\textbf{Chronic Kidney Disease Dataset} * \textbf{Binary Mapping:}
-Categorical descriptions (e.g., `normal', `abnormal'; `present',
-`notpresent') in symptoms and diagnostic results are mapped to binary
-(1, 0) to simplify the input for algorithm processing. * \textbf{Mean
-and Median Imputation:} Implements both mean and median imputation for
-handling missing values, providing two sets of data for comparative
-analysis and model robustness. * \textbf{Dropping Missing Data:} Ensures
-that only complete data entries are processed, by excluding rows with
-any missing values from the analysis, thus maintaining the reliability
-of the dataset.
+\textbf{Hepatitis Dataset}
 
-\textbf{Breast Cancer Dataset} * \textbf{Binary Mapping:} The target
-variable `Diagnosis' is converted from its original categorical labels
-(`M' for malignant, `B' for benign) into a binary format (1 for
-malignant, 0 for benign), aligning it with binary classification tasks
-in machine learning. * \textbf{Data Checks and Cleaning:} Verifies data
-types, checks for outliers, and ensures that all entries are consistent
-and appropriate for analysis.
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Binary Remapping:} Specific columns that contain categorical
+  data related to the patient's conditions (e.g., `Steroid',
+  `Antivirals', `Fatigue') are converted to binary format, where
+  applicable values are adjusted to 0 and 1 to reflect absence and
+  presence of the condition.
+\item
+  \textbf{Mean and Median Imputation:} Missing values are addressed by
+  calculating and substituting the mean and median for each column,
+  allowing for robustness against outliers and skewed data.
+\item
+  \textbf{Dropping Missing Data:} Rows containing missing data are
+  removed to avoid the introduction of bias or inaccuracies in the
+  model's predictions. Corresponding entries in the target variable are
+  also excluded to maintain dataset alignment.
+\end{itemize}
 
-\textbf{Immunotherapy Dataset} * \textbf{Binary Mapping and Renaming:}
-Converts `sex' from a categorical to a binary format and updates the
-column name to `is\_female' to reflect this binary distinction. *
-\textbf{One-Hot Encoding:} Applies one-hot encoding to the `Type'
-column, which involves transforming it into multiple binary columns,
-each representing a different type of immunotherapy, thereby avoiding
-ordinal implications in the categorical data. * \textbf{Concatenation:}
-The one-hot encoded columns are then concatenated back to the main
-dataset, preserving the original data structure while adding new binary
-indicators.
+\textbf{Chronic Kidney Disease Dataset}
 
-\textbf{Cryotherapy Dataset} * \textbf{Binary Mapping:} Converts `sex'
-to a binary format and adjusts column naming similarly to the
-Immunotherapy dataset to maintain consistency. * \textbf{ne-Hot
-Encoding:} The `Type' column is treated with one-hot encoding to convert
-categorical treatment types into a series of binary columns, which are
-more suitable for machine learning models. * \textbf{Concatenation of
-One-Hot Encoded Data:} These binary columns are merged back into the
-primary dataset, ensuring that all data remains integrated and
-accessible for subsequent analysis.
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Binary Mapping:} Categorical descriptions (e.g., `normal',
+  `abnormal'; `present', `notpresent') in symptoms and diagnostic
+  results are mapped to binary (1, 0) to simplify the input for
+  algorithm processing.
+\item
+  \textbf{Mean and Median Imputation:} Implements both mean and median
+  imputation for handling missing values, providing two sets of data for
+  comparative analysis and model robustness.
+\item
+  \textbf{Dropping Missing Data:} Ensures that only complete data
+  entries are processed, by excluding rows with any missing values from
+  the analysis, thus maintaining the reliability of the dataset.
+\end{itemize}
+
+\textbf{Breast Cancer Dataset}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Binary Mapping:} The target variable `Diagnosis' is converted
+  from its original categorical labels (`M' for malignant, `B' for
+  benign) into a binary format (1 for malignant, 0 for benign), aligning
+  it with binary classification tasks in machine learning.
+\item
+  \textbf{Data Checks and Cleaning:} Verifies data types, checks for
+  outliers, and ensures that all entries are consistent and appropriate
+  for analysis.
+\end{itemize}
+
+\textbf{Immunotherapy Dataset}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Binary Mapping and Renaming:} Converts `sex' from a
+  categorical to a binary format and updates the column name to
+  `is\_female' to reflect this binary distinction.
+\item
+  \textbf{One-Hot Encoding:} Applies one-hot encoding to the `Type'
+  column, which involves transforming it into multiple binary columns,
+  each representing a different type of immunotherapy, thereby avoiding
+  ordinal implications in the categorical data.
+\item
+  \textbf{Concatenation:} The one-hot encoded columns are then
+  concatenated back to the main dataset, preserving the original data
+  structure while adding new binary indicators.
+\end{itemize}
+
+\textbf{Cryotherapy Dataset}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Binary Mapping:} Converts `sex' to a binary format and adjusts
+  column naming similarly to the Immunotherapy dataset to maintain
+  consistency.
+\item
+  \textbf{One-Hot Encoding:} The `Type' column is treated with one-hot
+  encoding to convert categorical treatment types into a series of
+  binary columns, which are more suitable for machine learning models.
+\item
+  \textbf{Concatenation of One-Hot Encoded Data:} These binary columns
+  are merged back into the primary dataset, ensuring that all data
+  remains integrated and accessible for subsequent analysis.
+\end{itemize}
 
     \hypertarget{modeling-and-hyerparameter-optimization}{%
 \subsubsection{MODELING AND HYERPARAMETER
@@ -597,105 +660,21 @@ model performance.
     \hypertarget{results}{%
 \subsection{RESULTS}\label{results}}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{Verbatim}[commandchars=\\\{\}]
-                                   dataset model  train\_time  eval\_time  \textbackslash{}
-0                            breast\_cancer    rf    0.183281   0.027984
-1                            breast\_cancer   knn    0.002406   0.018223
-2                            breast\_cancer   svm    0.029788   0.012569
-3                            breast\_cancer    dt    0.017596   0.005135
-4     chronic\_kidney\_disease\_mean\_imputted    rf    0.269601   0.044630
-5     chronic\_kidney\_disease\_mean\_imputted   knn    0.005406   0.024386
-6     chronic\_kidney\_disease\_mean\_imputted   svm    0.010864   0.006508
-7     chronic\_kidney\_disease\_mean\_imputted    dt    0.004596   0.001432
-8   chronic\_kidney\_disease\_median\_imputted    rf    0.191878   0.040303
-9   chronic\_kidney\_disease\_median\_imputted   knn    0.005036   0.017453
-10  chronic\_kidney\_disease\_median\_imputted   svm    0.010226   0.003573
-11  chronic\_kidney\_disease\_median\_imputted    dt    0.003194   0.001441
-12  chronic\_kidney\_disease\_missing\_dropped    rf    0.273432   0.035553
-13  chronic\_kidney\_disease\_missing\_dropped   knn    0.004863   0.015425
-14  chronic\_kidney\_disease\_missing\_dropped   svm    0.009367   0.004073
-15  chronic\_kidney\_disease\_missing\_dropped    dt    0.008460   0.003340
-16                                covid\_19    rf    0.194533   0.030823
-17                                covid\_19   knn    0.003052   0.031629
-18                                covid\_19   svm    0.007811   0.003878
-19                                covid\_19    dt    0.007249   0.006057
-20                             cryotherapy    rf    0.219233   0.040224
-21                             cryotherapy   knn    0.007742   0.034397
-22                             cryotherapy   svm    0.007215   0.003353
-23                             cryotherapy    dt    0.003139   0.002361
-24                 hepatitis\_mean\_imputted    rf    0.237288   0.038766
-25                 hepatitis\_mean\_imputted   knn    0.006000   0.018121
-26                 hepatitis\_mean\_imputted   svm    0.012891   0.005145
-27                 hepatitis\_mean\_imputted    dt    0.009227   0.006996
-28               hepatitis\_median\_imputted    rf    0.376774   0.041732
-29               hepatitis\_median\_imputted   knn    0.005754   0.022186
-30               hepatitis\_median\_imputted   svm    0.010769   0.006719
-31               hepatitis\_median\_imputted    dt    0.007189   0.003993
-32               hepatitis\_missing\_dropped    rf    0.208498   0.039103
-33               hepatitis\_missing\_dropped   knn    0.005799   0.018653
-34               hepatitis\_missing\_dropped   svm    0.013068   0.006910
-35               hepatitis\_missing\_dropped    dt    0.004419   0.002771
-36                           immunotherapy    rf    0.318120   0.035794
-37                           immunotherapy   knn    0.006032   0.025356
-38                           immunotherapy   svm    0.004922   0.003697
-39                           immunotherapy    dt    0.005246   0.002195
-
-    train\_acc  eval\_acc  train\_f1   eval\_f1
-0    1.000000  0.964912  1.000000  0.952381
-1    0.949451  0.947368  0.929231  0.926829
-2    0.916484  0.947368  0.880503  0.925000
-3    0.980220  0.947368  0.973451  0.930233
-4    1.000000  1.000000  1.000000  1.000000
-5    0.850000  0.700000  0.865922  0.727273
-6    0.621875  0.662500  0.743100  0.776860
-7    0.971875  0.987500  0.976864  0.990291
-8    1.000000  0.987500  1.000000  0.990291
-9    0.850000  0.712500  0.865169  0.741573
-10   0.618750  0.637500  0.752033  0.771654
-11   0.981250  0.987500  0.984615  0.990291
-12   1.000000  1.000000  1.000000  1.000000
-13   0.849206  0.812500  0.612245  0.500000
-14   0.785714  0.812500  0.341463  0.500000
-15   1.000000  1.000000  1.000000  1.000000
-16   1.000000  0.333333  1.000000  0.166667
-17   0.636364  0.333333  0.494949  0.166667
-18   1.000000  0.333333  1.000000  0.166667
-19   0.636364  0.333333  0.494949  0.166667
-20   1.000000  0.777778  1.000000  0.800000
-21   0.902778  0.611111  0.909091  0.666667
-22   0.875000  0.611111  0.888889  0.666667
-23   0.916667  0.611111  0.923077  0.631579
-24   1.000000  0.774194  1.000000  0.862745
-25   0.862903  0.774194  0.920188  0.867925
-26   0.798387  0.774194  0.887892  0.872727
-27   0.935484  0.741935  0.959596  0.840000
-28   1.000000  0.774194  1.000000  0.857143
-29   0.870968  0.774194  0.924528  0.867925
-30   0.798387  0.774194  0.887892  0.872727
-31   0.927419  0.741935  0.953846  0.826087
-32   1.000000  0.937500  1.000000  0.965517
-33   0.875000  0.875000  0.928571  0.933333
-34   0.843750  0.875000  0.913793  0.933333
-35   0.921875  0.875000  0.953271  0.928571
-36   0.986111  0.833333  0.991304  0.896552
-37   0.833333  0.722222  0.906250  0.827586
-38   0.805556  0.722222  0.892308  0.838710
-39   0.902778  0.777778  0.936937  0.857143
-\end{Verbatim}
-\end{tcolorbox}
-        
     \hypertarget{wisconsin-breast-cancer}{%
 \subsubsection{Wisconsin Breast Cancer}\label{wisconsin-breast-cancer}}
 
     \textbf{Training And Testing Time}
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/Breast_Cancer_Time.PNG}
+\caption{Breast\_Cancer\_Time}
+\end{figure}
 
     \textbf{Accuracy and F1 Score}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_23_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_22_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -704,7 +683,11 @@ model performance.
 
     \textbf{Training And Testing Time}
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/Chronic_Kidney_Disease_Time.PNG}
+\caption{Chronic\_Kidney\_Disease\_Time}
+\end{figure}
 
     \textbf{Accuracy and F1 Score}
 
@@ -712,7 +695,7 @@ model performance.
 \subparagraph{Mean Imputted}\label{mean-imputted}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_29_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_28_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -720,7 +703,7 @@ model performance.
 \subparagraph{Median Imputted}\label{median-imputted}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_31_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_30_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -728,7 +711,7 @@ model performance.
 \subparagraph{Missing Dropped}\label{missing-dropped}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_33_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_32_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -737,12 +720,16 @@ model performance.
 
     \textbf{Training And Testing Time}
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/Covid19_Time.PNG}
+\caption{Covid19\_Time}
+\end{figure}
 
     \textbf{Accuracy and F1 Score}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_38_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_37_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -751,21 +738,29 @@ model performance.
 
     \textbf{Training And Testing Time}
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/Cryotherapy_Time.PNG}
+\caption{Cryotherapy\_Time}
+\end{figure}
 
     \textbf{Accuracy and F1 Score}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_43_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_42_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \hypertarget{hepatisis}{%
-\subsubsection{Hepatisis}\label{hepatisis}}
+    \hypertarget{hepatitis}{%
+\subsubsection{Hepatitis}\label{hepatitis}}
 
     \textbf{Training And Testing Time}
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/Hepathisis_time.PNG}
+\caption{Hepathisis\_time}
+\end{figure}
 
     \textbf{Accuracy and F1 Score}
 
@@ -773,7 +768,7 @@ model performance.
 \subparagraph{Mean Imputted}\label{mean-imputted}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_49_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_48_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -781,7 +776,7 @@ model performance.
 \subparagraph{Median Imputted}\label{median-imputted}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_51_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_50_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -789,7 +784,7 @@ model performance.
 \subparagraph{Missing Dropped}\label{missing-dropped}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_53_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_52_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -798,12 +793,16 @@ model performance.
 
     \textbf{Training And Testing Time}
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/Immunotherapy_time.PNG}
+\caption{Immunotherapy\_time}
+\end{figure}
 
     \textbf{Accuracy and F1 Score}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_58_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{RR_Project_Report_files/RR_Project_Report_57_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -813,39 +812,86 @@ model performance.
     In our replication of the study, we follow the original approach of
 categorizing model performance into four levels: \textbf{excellent
 execution, good execution, fair execution, and inadequate execution}.
-However, the original study does not specify the metrics or methodology
-used to classify these performance categories. In the absence of this
-information, we have structured our comparison based on a combination of
-quantitative measures: \textbf{Testing Accuracy, Testing F1 Score, and
-Testing Time.}
+The original study primarily utilizes \textbf{Testing Accuracy} to
+compare the performance of models across various datasets, a method we
+have also adopted.
 
-In our study, we primarily use \textbf{Testing Accuracy} to compare the
-performance of models across various datasets. If models show identical
-testing accuracy, we then assess the \textbf{Testing F1 Score} for a
-deeper evaluation of model precision and recall. In cases where the F1
-scores are also equivalent, \textbf{Testing Time} serves as the final
-criterion to determine the model's efficiency.
+In instances where models yield the same Testing Accuracy for the same
+datasets, we employ a different approach by further comparing results
+using \textbf{Testing F1 Score} and \textbf{Testing Time}. This
+adjustment is necessary because, unlike in the original study where all
+testing accuracies differed, our replication has encountered scenarios
+with identical accuracy scores, necessitating additional metrics for a
+comprehensive evaluation.
 
     \textbf{Our Results Comparison}
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/Final_Result_Comparison_Ours.PNG}
+\caption{Final\_Result\_Comparison\_Ours}
+\end{figure}
 
     \textbf{Replicated Study Comparison}
 
-    
+    \begin{figure}
+\centering
+\includegraphics{images/Original_study_comparison.PNG}
+\caption{Original\_study\_comparison}
+\end{figure}
 
-    Our results in the replicated study exhibit significant differences
-across almost all datasets when compared to the original study. This
-variation can primarily be attributed to the lack of detailed
-methodology disclosed in the original study regarding the specific
-metrics, hyperparameters, and comparison criteria used. Without this
-information, our replication had to rely on standard performance metrics
-(Testing Accuracy, F1 Score, and Testing Time) and commonly used
-hyperparameters for each model, which likely led to the observed
-discrepancies in model performance classification across the datasets.
-This highlights the importance of transparency and detailed
-documentation in research to ensure reproducibility and accurate
-comparison of results.
+    Our results exhibit significant differences across almost all datasets
+when compared to the replicated study. These variations can primarily be
+attributed to the lack of detailed documentation in the replicated study
+regarding their methodology, data preprocessing processes, and the
+hyperparameters used in the models. In our replication, we employed a
+grid search to optimize hyperparameter selection, a method not specified
+in the replicated study. Without knowledge of how they chose their
+hyperparameters, our reliance on this systematic approach likely
+contributed to the observed discrepancies in model performance across
+the datasets. This highlights the importance of transparency and
+detailed documentation in research to ensure reproducibility and
+accurate comparison of results.
+
+    \hypertarget{references}{%
+\subsection{REFERENCES}\label{references}}
+
+    \textbf{Replicated Study}
+
+    \begin{itemize}
+\tightlist
+\item
+  Mijwil, M. M., Salem, I. E., \& Abttan, R. A. (2021). Utilisation of
+  Machine Learning Techniques in Testing and Training of Different
+  Medical Datasets. Asian Journal of Computer and Information Systems,
+  9(4), 29. Retrieved from
+  https://ajouronline.com/index.php/AJCIS/article/view/6765
+\end{itemize}
+
+    \textbf{Datasets}
+
+    All datasets are retrieved from UC Irvine Machine Learning Repository:
+
+\begin{itemize}
+\tightlist
+\item
+  Wisconsin Breast Cancer:
+  https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic
+\item
+  Chronic Kidney Disease:
+  https://archive.ics.uci.edu/dataset/336/chronic+kidney+disease
+\item
+  Immunotherapy:
+  https://archive.ics.uci.edu/dataset/428/immunotherapy+dataset
+\item
+  Cryotherapy:
+  https://archive.ics.uci.edu/dataset/429/cryotherapy+dataset
+\item
+  Hepatitis: https://archive.ics.uci.edu/dataset/46/hepatitis
+\item
+  COVID-19:
+  https://archive.ics.uci.edu/dataset/567/covid+19+surveillance
+\end{itemize}
 
 
     % Add a bibliography block to the postdoc
