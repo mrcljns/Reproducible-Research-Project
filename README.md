@@ -1,6 +1,14 @@
 # Reproducible-Research-Project
+## Authors
+* Nurdan Beşli
+* Dominik Koterwa
+* Maciej Lorens
+* Huseyin Polat
+
+## Project description
 Our project is centered on replicating and expanding upon the machine learning research detailed in the Asian Journal of Computer and Information Systems (AJCIS), specifically the article titled *"Utilisation of Machine Learning Techniques in Testing and Training of Different Medical Datasets"*.
 
+## Reproducing results
 To reproduce the results obtained in this project, use the ```conda create --name <env> --file requirements.txt``` command to recreate the anaconda environment and run the scripts in the following order:
 1. ```scripts/data_cleaning_eda.py```
    - clean and transform the data from the ```Data/Raw``` folder,
